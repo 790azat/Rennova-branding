@@ -39,7 +39,7 @@ Vercel не запускает PHP сам по себе, поэтому испо
 2. Добавьте переменные окружения:
    - `APP_KEY` — вывод `php artisan key:generate --show`
    - `APP_URL` — адрес сайта
-   - `DB_URL` — строка подключения Postgres
+   - `DB_URL` — строка подключения Postgres (если база Neon подключена через Vercel Storage, подхватится `DATABASE_URL` автоматически)
    - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — первый администратор
    - `SETUP_TOKEN` — длинная случайная строка
 3. После деплоя откройте один раз `https://ваш-сайт/setup/<SETUP_TOKEN>`: создадутся таблицы и стартовые данные.
