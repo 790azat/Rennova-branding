@@ -46,9 +46,14 @@ Route::get('/setup/{token}', function (string $token) {
     $expected = config('rennova.setup_token');
     abort_unless(filled($expected) && hash_equals($expected, $token), 404);
 
-    Artisan::call('migrate', ['--force' => true]);
-    $out = Artisan::output();
-    Artisan::call('db:seed', ['--force' => true]);
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $out = Artisan::output();
+        Artisan::call('db:seed', ['--force' => true]);
+        $out .= Artisan::output();
+    } catch (Throwable $e) {
+        $out = 'Ошибка: '.$e->getMessage();
+    }
 
-    return response($out.Artisan::output(), 200, ['Content-Type' => 'text/plain; charset=utf-8']);
-})->middleware('throttle:5,1');
+    return response($out, 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+});
