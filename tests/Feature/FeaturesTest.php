@@ -49,7 +49,7 @@ class FeaturesTest extends TestCase
         $this->get('/')->assertSee('Квартира на Северном')->assertSee($post->title);
         $this->get('/brands/'.$brand->slug)->assertSee('Запросить импорт');
         $this->get('/sitemap.xml')->assertSee('/blog/'.$post->slug);
-        $this->get('/blog/'.$post->slug)->assertSee('"@context":"https:\/\/schema.org"', false);
+        $this->get('/blog/'.$post->slug)->assertSee('"@context":"https://schema.org"', false);
     }
 
     public function test_unpublished_content_is_hidden(): void
