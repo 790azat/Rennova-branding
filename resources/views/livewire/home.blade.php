@@ -100,6 +100,43 @@
         </div>
     </section>
 
+    {{-- Portfolio --}}
+    @if ($projects->isNotEmpty())
+        <section class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">{{ __('Портфолио') }}</div>
+                        <h2>{{ __('Реализованные проекты') }}</h2>
+                    </div>
+                    <a href="{{ route('portfolio') }}" class="link-arrow" wire:navigate>{{ __('Все проекты') }}</a>
+                </div>
+                <div class="grid grid-3">
+                    @foreach ($projects as $project)
+                        @include('partials.project-card')
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- Calculator CTA --}}
+    <section class="section section--tight">
+        <div class="wrap">
+            <div class="cta-band">
+                <div>
+                    <div class="eyebrow">{{ __('Калькулятор стоимости') }}</div>
+                    <h2>{{ __('Узнайте примерную стоимость за минуту') }}</h2>
+                    <p class="muted">{{ __('Выберите услугу, площадь и опции. Расчёт сразу уйдёт менеджеру, и мы свяжемся с вами.') }}</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="{{ route('calculator') }}" class="btn" wire:navigate>{{ __('Рассчитать стоимость') }}</a>
+                    <a href="{{ route('booking') }}" class="btn btn--ghost" wire:navigate>{{ __('Записаться на консультацию') }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- Brands --}}
     @if ($brands->isNotEmpty())
         <section class="section section--dark">
@@ -124,12 +161,12 @@
             <div class="wrap" style="margin-top:56px">
                 <div class="grid grid-3">
                     @foreach ($brands->where('is_featured', true)->take(3) as $brand)
-                        <div class="brand-card">
+                        <a href="{{ route('brands.show', $brand) }}" class="brand-card" wire:navigate>
                             @if ($brand->is_exclusive)<span class="badge-ex">{{ __('Эксклюзив') }}</span>@endif
                             <div class="brand-logo"><span class="brand-word">{{ $brand->name }}</span></div>
                             <div class="meta">{{ $brand->tr('category') }} · {{ $brand->tr('country') }}</div>
                             <p class="muted small">{{ $brand->tr('description') }}</p>
-                        </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -160,6 +197,46 @@
             </div>
         </div>
     </section>
+
+    {{-- Reviews --}}
+    @if ($reviews->isNotEmpty())
+        <section class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">{{ __('Отзывы') }}</div>
+                        <h2>{{ __('Что говорят клиенты') }}</h2>
+                    </div>
+                    <a href="{{ route('reviews') }}" class="link-arrow" wire:navigate>{{ __('Все отзывы') }}</a>
+                </div>
+                <div class="grid grid-3">
+                    @foreach ($reviews as $review)
+                        @include('partials.review-card')
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{-- Blog --}}
+    @if ($posts->isNotEmpty())
+        <section class="section">
+            <div class="wrap">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">{{ __('Блог') }}</div>
+                        <h2>{{ __('Советы и идеи для вашего пространства') }}</h2>
+                    </div>
+                    <a href="{{ route('blog') }}" class="link-arrow" wire:navigate>{{ __('Все статьи') }}</a>
+                </div>
+                <div class="grid grid-3">
+                    @foreach ($posts as $post)
+                        @include('partials.post-card')
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
     {{-- Community --}}
     <section class="section section--bone">

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Discussion;
+use App\Models\Post;
 use App\Models\DiscussionReply;
 use App\Models\Service;
 use App\Models\Setting;
@@ -47,6 +48,32 @@ class DatabaseSeeder extends Seeder
 
         foreach (Setting::FIELDS as $key => [, $default]) {
             Setting::query()->firstOrCreate(['key' => $key], ['value' => $default]);
+        }
+
+        foreach (GrowthContent::PRODUCTS as $brandSlug => $rows) {
+            $brand = Brand::query()->where('slug', $brandSlug)->first();
+            if (! $brand || $brand->products()->exists()) {
+                continue;
+            }
+            foreach ($rows as $i => $row) {
+                [$attrs, $translations] = GrowthContent::product($row);
+                $brand->products()->create($attrs + [
+                    'slug' => Str::slug($translations['en']['name']),
+                    'translations' => $translations,
+                    'is_active' => true,
+                    'sort' => $i,
+                ]);
+            }
+        }
+
+        foreach (GrowthContent::POSTS as $post) {
+            Post::query()->firstOrCreate(['slug' => $post['slug']], $post['ru'] + [
+                'category' => $post['category'],
+                'landmark' => $post['landmark'],
+                'author_id' => $admin->id,
+                'published_at' => now()->subDays($post['days_ago'])->setTime(10, 0),
+                'translations' => ['en' => $post['en'], 'hy' => $post['hy']],
+            ]);
         }
 
         if (Discussion::query()->doesntExist()) {

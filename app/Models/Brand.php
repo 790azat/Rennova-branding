@@ -24,9 +24,19 @@ class Brand extends Model
         ];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function scopeActive(Builder $q): Builder
     {
         return $q->where('is_active', true)->orderBy('sort')->orderBy('name');
+    }
+
+    public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 
     public function monogram(): string

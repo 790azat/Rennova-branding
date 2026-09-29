@@ -50,4 +50,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(ServiceOrder::class);
     }
+
+    public function clientProjects(): HasMany
+    {
+        return $this->hasMany(ClientProject::class);
+    }
+
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
 }

@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Brand;
 use App\Models\Discussion;
+use App\Models\PortfolioProject;
+use App\Models\Post;
+use App\Models\Review;
 use App\Models\Service;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -20,6 +23,9 @@ class Home extends Component
             'brands' => Brand::query()->active()->get(),
             'discussions' => Discussion::query()->with('user')->withCount('replies')
                 ->latest('last_activity_at')->take(3)->get(),
+            'projects' => PortfolioProject::query()->published()->where('is_featured', true)->take(3)->get(),
+            'reviews' => Review::query()->approved()->with('service')->latest()->take(3)->get(),
+            'posts' => Post::query()->published()->take(3)->get(),
         ]);
     }
 }

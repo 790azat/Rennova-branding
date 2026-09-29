@@ -14,7 +14,11 @@
                 <tr wire:key="o-{{ $o->id }}">
                     <td class="small">{{ $o->created_at->format('d.m.Y H:i') }}</td>
                     <td><strong>{{ $o->name }}</strong><div class="small"><a href="tel:{{ $o->phone }}">{{ $o->phone }}</a></div>@if($o->email)<div class="small muted">{{ $o->email }}</div>@endif</td>
-                    <td>{{ $o->service?->tr('title') ?? __('Консультация') }}</td>
+                    <td>{{ $o->service?->tr('title') ?? __('Консультация') }}
+                        @if ($o->source === 'calculator')<div><span class="status status--confirmed">{{ __('Калькулятор') }}</span></div>@endif
+                        @if ($o->estimate)<div class="small">{{ __('от') }} <strong>{{ number_format($o->estimate, 0, '.', ' ') }} ֏</strong></div>@endif
+                        @if ($o->user_id)<div class="small"><a href="{{ route('admin.client-projects', ['user' => $o->user_id]) }}" wire:navigate>{{ __('Открыть проект') }}</a></div>@endif
+                    </td>
                     <td class="small" style="max-width:320px;white-space:pre-line">{{ $o->message }}</td>
                     <td>
                         <select class="input" wire:change="setStatus({{ $o->id }}, $event.target.value)">

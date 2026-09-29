@@ -15,6 +15,44 @@ return [
     // One-time setup route: /setup/{token} runs migrations and seeds when SETUP_TOKEN is set.
     'setup_token' => env('SETUP_TOKEN'),
 
+    // Cost calculator. Base rates per m² come from the services' "price from" (editable in the admin);
+    // these multipliers and extras refine the estimate. Labels are Russian source strings.
+    'calculator' => [
+        'property' => [
+            'apartment' => ['Квартира', 1.0],
+            'house' => ['Частный дом', 1.15],
+            'office' => ['Офис или коммерция', 1.1],
+        ],
+        'condition' => [
+            'new' => ['Новостройка без отделки', 1.0],
+            'secondary' => ['Вторичное жильё', 1.2],
+            'good' => ['Хорошее состояние, освежить', 0.85],
+        ],
+        'extras' => [
+            // key => [label, price per m², categories it applies to]
+            'demolition' => ['Демонтаж старой отделки', 3500, ['renovation', 'bundle']],
+            'electrics' => ['Замена электрики', 6000, ['renovation', 'bundle']],
+            'plumbing' => ['Замена сантехники и труб', 5000, ['renovation', 'bundle']],
+            'floor_heating' => ['Тёплый пол', 7000, ['renovation', 'bundle']],
+            'visualization' => ['3D-визуализация всех помещений', 2500, ['design']],
+            'supervision' => ['Авторский надзор', 3000, ['design', 'architecture']],
+            'windows' => ['Мойка окон и фасадного остекления', 400, ['cleaning']],
+            'furniture_cleaning' => ['Химчистка мебели и ковров', 350, ['cleaning']],
+        ],
+        'urgent' => 1.2,   // "Срочно" multiplier
+        'spread' => 1.25,  // upper bound of the range = estimate × spread
+        'min_area' => 5,
+        'max_area' => 5000,
+    ],
+
+    // Consultation booking.
+    'booking' => [
+        'timezone' => 'Asia/Yerevan',
+        'days_ahead' => 21,
+        'weekdays' => [1, 2, 3, 4, 5, 6], // ISO: 1 = Monday … 7 = Sunday
+        'times' => ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'],
+    ],
+
     // Landmarks used as design motifs across the site.
     'landmarks' => [
         'eiffel' => ['Эйфелева башня', 'Париж', 1889, 'Кружево из 18 000 металлических деталей: инженерия как искусство.'],

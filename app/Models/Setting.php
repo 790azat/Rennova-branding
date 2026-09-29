@@ -23,6 +23,12 @@ class Setting extends Model
         'phone' => ['Телефон', '+374 00 000 000'],
         'email' => ['Email', 'info@rennova.am'],
         'address' => ['Адрес', 'Ереван, Армения'],
+        'work_hours' => ['Часы работы', 'Пн–Сб, 10:00–19:00'],
+        'whatsapp' => ['WhatsApp (номер с кодом страны)', ''],
+        'telegram' => ['Telegram (имя пользователя без @)', ''],
+        'viber' => ['Viber (номер с кодом страны)', ''],
+        'map_lat' => ['Карта: широта', '40.1776'],
+        'map_lng' => ['Карта: долгота', '44.5126'],
     ];
 
     protected static ?array $cache = null;

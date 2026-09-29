@@ -17,6 +17,7 @@ class Imports extends Component
 
     public string $productType = 'finishing';
 
+    #[Url(as: 'product')]
     public string $title = '';
 
     public string $description = '';

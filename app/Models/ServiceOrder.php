@@ -14,7 +14,12 @@ class ServiceOrder extends Model
         'cancelled' => 'Отменена',
     ];
 
-    protected $fillable = ['user_id', 'service_id', 'name', 'phone', 'email', 'message', 'status'];
+    protected $fillable = ['user_id', 'service_id', 'name', 'phone', 'email', 'message', 'status', 'source', 'estimate', 'details'];
+
+    protected function casts(): array
+    {
+        return ['details' => 'array'];
+    }
 
     public function user(): BelongsTo
     {

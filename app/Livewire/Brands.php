@@ -20,7 +20,7 @@ class Brands extends Component
 
     public function render()
     {
-        $all = Brand::query()->active()->get();
+        $all = Brand::query()->active()->withCount(['products' => fn ($q) => $q->where('is_active', true)])->get();
 
         return view('livewire.brands', [
             'categories' => $all->filter(fn ($b) => filled($b->category))->unique('category')

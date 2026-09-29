@@ -4,6 +4,7 @@
             <div class="eyebrow">{{ __('Личный кабинет') }}</div>
             <h1>{{ $name }}</h1>
             <p class="lead">{{ __('Ваши данные, заявки на услуги и обсуждения.') }}</p>
+            <a href="{{ route('cabinet') }}" class="btn btn--light" style="margin-top:24px" wire:navigate>{{ __('Мои проекты и статус работ') }}</a>
         </div>
         <x-landmark name="bigben" stroke="0.8" />
     </section>

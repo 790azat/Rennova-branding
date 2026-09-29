@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ isset($title) ? __($title).' — Rennova' : 'Rennova — '.__('ремонт, дизайн, архитектура и клининг') }}</title>
-    <meta name="description" content="{{ __('Rennova by Metruminvest: ремонт под ключ, дизайн интерьера, архитектура и клининг в Армении. Эксклюзивные бренды и импорт материалов.') }}">
+    <meta name="description" content="{{ $description ?? __('Rennova by Metruminvest: ремонт под ключ, дизайн интерьера, архитектура и клининг в Армении. Эксклюзивные бренды и импорт материалов.') }}">
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=3">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=4">
+    @stack('head')
     @livewireStyles
 </head>
 <body>
@@ -18,15 +19,26 @@
         @include('partials.brand')
         <nav class="nav" :class="{ open }">
             <a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}" wire:navigate>{{ __('Услуги') }}</a>
-            <a href="{{ route('brands') }}" class="{{ request()->routeIs('brands') ? 'active' : '' }}" wire:navigate>{{ __('Бренды') }}</a>
-            <a href="{{ route('discussions.index') }}" class="{{ request()->routeIs('discussions.*') ? 'active' : '' }}" wire:navigate>{{ __('Обсуждения') }}</a>
-            <a href="{{ route('imports') }}" class="{{ request()->routeIs('imports') ? 'active' : '' }}" wire:navigate>{{ __('Импорт товаров') }}</a>
-            <a href="{{ route('home') }}#contacts">{{ __('Контакты') }}</a>
+            <a href="{{ route('portfolio') }}" class="{{ request()->routeIs('portfolio*') ? 'active' : '' }}" wire:navigate>{{ __('Портфолио') }}</a>
+            <a href="{{ route('brands') }}" class="{{ request()->routeIs('brands*') ? 'active' : '' }}" wire:navigate>{{ __('Бренды') }}</a>
+            <a href="{{ route('calculator') }}" class="{{ request()->routeIs('calculator') ? 'active' : '' }}" wire:navigate>{{ __('Калькулятор') }}</a>
+            <a href="{{ route('blog') }}" class="{{ request()->routeIs('blog*') ? 'active' : '' }}" wire:navigate>{{ __('Блог') }}</a>
+            <div class="nav-more" x-data="{ more: false }" @click.outside="more = false" @mouseleave="more = false">
+                <button type="button" class="{{ request()->routeIs('discussions.*', 'imports', 'reviews') ? 'active' : '' }}" @click="more = !more" @mouseenter="more = true">{{ __('Сообщество') }} <span aria-hidden="true">▾</span></button>
+                <div class="nav-more-list" :class="{ show: more }">
+                    <a href="{{ route('discussions.index') }}" wire:navigate>{{ __('Обсуждения') }}</a>
+                    <a href="{{ route('imports') }}" wire:navigate>{{ __('Импорт товаров') }}</a>
+                    <a href="{{ route('reviews') }}" wire:navigate>{{ __('Отзывы') }}</a>
+                </div>
+            </div>
+            <a href="{{ route('contacts') }}" class="{{ request()->routeIs('contacts') ? 'active' : '' }}" wire:navigate>{{ __('Контакты') }}</a>
+            <a href="{{ route('booking') }}" class="nav-login" wire:navigate>{{ __('Консультация') }}</a>
             @guest<a href="{{ route('login') }}" class="nav-login" wire:navigate>{{ __('Войти') }}</a>@endguest
         </nav>
         <div class="header-actions">
             @include('partials.lang')
             @include('partials.socials')
+            <a href="{{ route('booking') }}" class="btn btn--sm header-cta" wire:navigate>{{ __('Консультация') }}</a>
             @auth
                 <div class="user-menu" x-data="{ menu: false }" @click.outside="menu = false">
                     <button class="avatar" @click="menu = !menu" aria-label="{{ __('Меню пользователя') }}">{{ auth()->user()->initials() }}</button>
@@ -35,6 +47,7 @@
                         @if (auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}">{{ __('Админпанель') }}</a>
                         @endif
+                        <a href="{{ route('cabinet') }}" wire:navigate>{{ __('Мои проекты') }}</a>
                         <a href="{{ route('profile') }}" wire:navigate>{{ __('Профиль и заявки') }}</a>
                         <a href="{{ route('imports') }}" wire:navigate>{{ __('Мои запросы на импорт') }}</a>
                         <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit">{{ __('Выйти') }}</button></form>
@@ -73,7 +86,11 @@
             <div>
                 <h4>{{ __('Сообщество') }}</h4>
                 <ul>
+                    <li><a href="{{ route('portfolio') }}">{{ __('Портфолио') }}</a></li>
                     <li><a href="{{ route('brands') }}">{{ __('Эксклюзивные бренды') }}</a></li>
+                    <li><a href="{{ route('calculator') }}">{{ __('Калькулятор стоимости') }}</a></li>
+                    <li><a href="{{ route('blog') }}">{{ __('Блог') }}</a></li>
+                    <li><a href="{{ route('reviews') }}">{{ __('Отзывы') }}</a></li>
                     <li><a href="{{ route('discussions.index') }}">{{ __('Обсуждения проектов') }}</a></li>
                     <li><a href="{{ route('imports') }}">{{ __('Импорт товаров') }}</a></li>
                     @guest<li><a href="{{ route('register') }}">{{ __('Регистрация') }}</a></li>@endguest
@@ -85,6 +102,9 @@
                     <li><a href="tel:{{ preg_replace('/[^+\d]/', '', \App\Models\Setting::get('phone')) }}">{{ \App\Models\Setting::get('phone') }}</a></li>
                     <li><a href="mailto:{{ \App\Models\Setting::get('email') }}">{{ \App\Models\Setting::get('email') }}</a></li>
                     <li>{{ __(\App\Models\Setting::get('address')) }}</li>
+                    <li>{{ __(\App\Models\Setting::get('work_hours')) }}</li>
+                    <li><a href="{{ route('contacts') }}">{{ __('Карта и мессенджеры') }}</a></li>
+                    <li><a href="{{ route('booking') }}">{{ __('Записаться на консультацию') }}</a></li>
                 </ul>
             </div>
         </div>
@@ -99,6 +119,8 @@
         </div>
     </div>
 </footer>
+
+@include('partials.messengers')
 
 @if (session('status'))
     <div class="toast" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition>{{ session('status') }}</div>

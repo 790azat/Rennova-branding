@@ -36,6 +36,7 @@
                         @if ($brand->tr('tagline'))<h3>{{ $brand->tr('tagline') }}</h3>@endif
                         <p class="muted small">{{ $brand->tr('description') }}</p>
                         <div style="margin-top:auto;display:flex;gap:16px;flex-wrap:wrap">
+                            <a href="{{ route('brands.show', $brand) }}" class="link-arrow" wire:navigate>{{ __('Каталог') }}@if($brand->products_count) ({{ $brand->products_count }})@endif</a>
                             <a href="{{ route('imports', ['brand' => $brand->name]) }}" class="link-arrow" wire:navigate>{{ __('Запросить импорт') }}</a>
                             @if ($brand->website)<a href="{{ $brand->website }}" target="_blank" rel="noopener" class="link-arrow">{{ __('Сайт') }}</a>@endif
                         </div>
