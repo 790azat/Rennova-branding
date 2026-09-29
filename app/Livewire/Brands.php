@@ -23,7 +23,8 @@ class Brands extends Component
         $all = Brand::query()->active()->get();
 
         return view('livewire.brands', [
-            'categories' => $all->pluck('category')->filter()->unique()->sort()->values(),
+            'categories' => $all->filter(fn ($b) => filled($b->category))->unique('category')
+                ->mapWithKeys(fn ($b) => [$b->category => $b->tr('category')])->sort(),
             'brands' => $all
                 ->when($this->category !== '', fn ($c) => $c->where('category', $this->category))
                 ->when($this->exclusive, fn ($c) => $c->where('is_exclusive', true)),

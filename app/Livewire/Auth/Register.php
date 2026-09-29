@@ -30,7 +30,7 @@ class Register extends Component
             'email' => 'required|email|max:160|unique:users,email',
             'phone' => 'nullable|string|max:40',
             'password' => ['required', 'confirmed', Password::min(8)],
-        ], [], ['name' => 'имя', 'email' => 'email', 'phone' => 'телефон', 'password' => 'пароль']);
+        ], [], ['name' => __('имя'), 'email' => 'email', 'phone' => __('телефон'), 'password' => __('пароль')]);
 
         $user = User::query()->create($data);
         Auth::login($user, true);

@@ -1,7 +1,7 @@
 @if ($paginator->hasPages())
-    <nav style="display:flex;gap:8px;justify-content:center;margin-top:32px;flex-wrap:wrap" aria-label="Страницы">
+    <nav style="display:flex;gap:8px;justify-content:center;margin-top:32px;flex-wrap:wrap" aria-label="{{ __('Страницы') }}">
         @if (! $paginator->onFirstPage())
-            <button class="chip" wire:click="previousPage('{{ $paginator->getPageName() }}')">← Назад</button>
+            <button class="chip" wire:click="previousPage('{{ $paginator->getPageName() }}')">{{ __('← Назад') }}</button>
         @endif
         @foreach ($elements as $element)
             @if (is_array($element))
@@ -13,7 +13,7 @@
             @endif
         @endforeach
         @if ($paginator->hasMorePages())
-            <button class="chip" wire:click="nextPage('{{ $paginator->getPageName() }}')">Вперёд →</button>
+            <button class="chip" wire:click="nextPage('{{ $paginator->getPageName() }}')">{{ __('Вперёд →') }}</button>
         @endif
     </nav>
 @endif

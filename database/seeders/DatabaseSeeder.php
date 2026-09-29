@@ -15,22 +15,34 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $password = env('ADMIN_PASSWORD') ?: (app()->isProduction() ? Str::random(16) : 'password');
-        $admin = User::query()->updateOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@rennova.am')],
-            ['name' => 'Администратор Rennova', 'password' => $password, 'role' => 'admin'],
-        );
-        $this->command?->info("Админ: {$admin->email} / {$password}");
+        // Non-destructive: safe to re-run on a live database without touching edited content or passwords.
+        $admin = User::query()->where('email', env('ADMIN_EMAIL', 'admin@rennova.am'))->first();
+        if (! $admin) {
+            $password = env('ADMIN_PASSWORD') ?: (app()->isProduction() ? Str::random(16) : 'password');
+            $admin = User::query()->create([
+                'email' => env('ADMIN_EMAIL', 'admin@rennova.am'),
+                'name' => 'Администратор Rennova',
+                'password' => $password,
+            ]);
+            $admin->forceFill(['role' => 'admin'])->save();
+            $this->command?->info("Админ: {$admin->email} / {$password}");
+        }
 
         foreach ($this->services() as $i => $service) {
-            Service::query()->updateOrCreate(['slug' => $service['slug']], $service + ['sort' => $i]);
+            $model = Service::query()->firstOrCreate(['slug' => $service['slug']], $service + ['sort' => $i]);
+            if (empty($model->translations) && isset(ContentTranslations::SERVICES[$model->slug])) {
+                $model->update(['translations' => ContentTranslations::SERVICES[$model->slug]]);
+            }
         }
 
         foreach ($this->brands() as $i => $brand) {
-            Brand::query()->updateOrCreate(
+            $model = Brand::query()->firstOrCreate(
                 ['slug' => Str::slug($brand['name'])],
                 $brand + ['sort' => $i, 'is_active' => true],
             );
+            if (empty($model->translations) && isset(ContentTranslations::BRANDS[$model->slug])) {
+                $model->update(['translations' => ContentTranslations::BRANDS[$model->slug]]);
+            }
         }
 
         foreach (Setting::FIELDS as $key => [, $default]) {

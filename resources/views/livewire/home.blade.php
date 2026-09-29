@@ -4,11 +4,11 @@
         <div class="wrap hero-grid">
             <div>
                 <div class="eyebrow">Rennova by Metruminvest</div>
-                <h1>Пространства, которые <em>обновляют</em> жизнь</h1>
-                <p class="lead">Ремонт под ключ, дизайн интерьера, архитектура и клининг. Отдельной услугой или полным циклом: от концепции до финальной сдачи.</p>
+                <h1>{{ __('Пространства, которые') }} <em>{{ __('обновляют') }}</em> {{ __('жизнь') }}</h1>
+                <p class="lead">{{ __('Ремонт под ключ, дизайн интерьера, архитектура и клининг. Отдельной услугой или полным циклом: от концепции до финальной сдачи.') }}</p>
                 <div class="hero-actions">
-                    <a href="{{ route('services.index') }}" class="btn btn--light" wire:navigate>Выбрать услугу</a>
-                    <a href="#request" class="btn btn--ghost" style="color:var(--bone);border-color:rgba(236,235,225,.4)">Оставить заявку</a>
+                    <a href="{{ route('services.index') }}" class="btn btn--light" wire:navigate>{{ __('Выбрать услугу') }}</a>
+                    <a href="#request" class="btn btn--ghost" style="color:var(--bone);border-color:rgba(236,235,225,.4)">{{ __('Оставить заявку') }}</a>
                 </div>
             </div>
             <div class="hero-mark">
@@ -18,10 +18,10 @@
         </div>
         <div class="wrap">
             <div class="hero-stats">
-                <div><strong>4</strong><span>направления под одной крышей</span></div>
-                <div><strong>1</strong><span>договор на полный цикл</span></div>
-                <div><strong>{{ $brands->where('is_exclusive', true)->count() }}+</strong><span>эксклюзивных брендов</span></div>
-                <div><strong>∞</strong><span>вдохновения от архитектуры мира</span></div>
+                <div><strong>4</strong><span>{{ __('направления под одной крышей') }}</span></div>
+                <div><strong>1</strong><span>{{ __('договор на полный цикл') }}</span></div>
+                <div><strong>{{ $brands->where('is_exclusive', true)->count() }}+</strong><span>{{ __('эксклюзивных брендов') }}</span></div>
+                <div><strong>∞</strong><span>{{ __('вдохновения от архитектуры мира') }}</span></div>
             </div>
             <div class="skyline">
                 @foreach (array_keys(config('rennova.landmarks')) as $landmark)
@@ -35,13 +35,13 @@
     <section class="section" id="about">
         <div class="wrap split">
             <div>
-                <div class="eyebrow">О компании</div>
-                <h2>Rennova превращает пространство в нечто новое и совершенное</h2>
-                <p class="lead">Мы армянская компания, специализирующаяся на ремонте под ключ и трансформации жилой и коммерческой недвижимости. От концепции и дизайна до строительства, меблировки и финальной сдачи.</p>
+                <div class="eyebrow">{{ __('О компании') }}</div>
+                <h2>{{ __('Rennova превращает пространство в нечто новое и совершенное') }}</h2>
+                <p class="lead">{{ __('Мы армянская компания, специализирующаяся на ремонте под ключ и трансформации жилой и коммерческой недвижимости. От концепции и дизайна до строительства, меблировки и финальной сдачи.') }}</p>
                 <div class="meaning">
-                    <div><strong>R</strong><span>Современная интерпретация буквы «R», символ Rennova.</span></div>
-                    <div><strong>□</strong><span>Квадратные формы: стабильность, надёжность и сила.</span></div>
-                    <div><strong>↖</strong><span>Стрелка: обновление, трансформация и новая жизнь пространства.</span></div>
+                    <div><strong>R</strong><span>{{ __('Современная интерпретация буквы «R», символ Rennova.') }}</span></div>
+                    <div><strong>□</strong><span>{{ __('Квадратные формы: стабильность, надёжность и сила.') }}</span></div>
+                    <div><strong>↖</strong><span>{{ __('Стрелка: обновление, трансформация и новая жизнь пространства.') }}</span></div>
                 </div>
             </div>
             <div class="frame">
@@ -59,10 +59,10 @@
         <div class="wrap">
             <div class="section-head">
                 <div>
-                    <div class="eyebrow">Услуги</div>
-                    <h2>Четыре направления, отдельно или вместе</h2>
+                    <div class="eyebrow">{{ __('Услуги') }}</div>
+                    <h2>{{ __('Четыре направления, отдельно или вместе') }}</h2>
                 </div>
-                <a href="{{ route('services.index') }}" class="link-arrow" wire:navigate>Все услуги</a>
+                <a href="{{ route('services.index') }}" class="link-arrow" wire:navigate>{{ __('Все услуги') }}</a>
             </div>
             <div class="grid grid-4">
                 @foreach ($services as $i => $service)
@@ -70,10 +70,10 @@
                         <x-landmark :name="$service->landmark ?? 'eiffel'" />
                         <div class="num">0{{ $i + 1 }}</div>
                         <span class="tag">{{ $service->categoryLabel() }}</span>
-                        <h3>{{ $service->title }}</h3>
-                        <p class="muted small">{{ $service->excerpt }}</p>
+                        <h3>{{ $service->tr('title') }}</h3>
+                        <p class="muted small">{{ $service->tr('excerpt') }}</p>
                         <div class="price">{{ $service->priceLabel() }}</div>
-                        <span class="link-arrow">Подробнее</span>
+                        <span class="link-arrow">{{ __('Подробнее') }}</span>
                     </a>
                 @endforeach
             </div>
@@ -81,15 +81,15 @@
             @if ($bundle)
                 <div class="bundle" style="margin-top:24px">
                     <div class="bundle-body">
-                        <span class="tag tag--solid" style="background:var(--olive);border-color:var(--olive)">Комплексная услуга</span>
-                        <h2>{{ $bundle->title }}</h2>
-                        <p style="color:#c9ccbf">{{ $bundle->excerpt }}</p>
+                        <span class="tag tag--solid" style="background:var(--olive);border-color:var(--olive)">{{ __('Комплексная услуга') }}</span>
+                        <h2>{{ $bundle->tr('title') }}</h2>
+                        <p style="color:#c9ccbf">{{ $bundle->tr('excerpt') }}</p>
                         <ol class="bundle-steps">
-                            @foreach ($bundle->features ?? [] as $feature)
+                            @foreach ($bundle->tr('features') ?? [] as $feature)
                                 <li>{{ $feature }}</li>
                             @endforeach
                         </ol>
-                        <a href="{{ route('services.show', $bundle) }}" class="btn btn--light" wire:navigate>Узнать о полном цикле</a>
+                        <a href="{{ route('services.show', $bundle) }}" class="btn btn--light" wire:navigate>{{ __('Узнать о полном цикле') }}</a>
                     </div>
                     <div class="bundle-art">
                         <x-logo-mark />
@@ -106,10 +106,10 @@
             <div class="wrap">
                 <div class="section-head">
                     <div>
-                        <div class="eyebrow">Эксклюзивные бренды</div>
-                        <h2>Материалы и предметы, которые мы представляем в Армении</h2>
+                        <div class="eyebrow">{{ __('Эксклюзивные бренды') }}</div>
+                        <h2>{{ __('Материалы и предметы, которые мы представляем в Армении') }}</h2>
                     </div>
-                    <a href="{{ route('brands') }}" class="btn btn--light" wire:navigate>Витрина брендов</a>
+                    <a href="{{ route('brands') }}" class="btn btn--light" wire:navigate>{{ __('Витрина брендов') }}</a>
                 </div>
             </div>
             <div class="brand-marquee">
@@ -125,10 +125,10 @@
                 <div class="grid grid-3">
                     @foreach ($brands->where('is_featured', true)->take(3) as $brand)
                         <div class="brand-card">
-                            @if ($brand->is_exclusive)<span class="badge-ex">Эксклюзив</span>@endif
+                            @if ($brand->is_exclusive)<span class="badge-ex">{{ __('Эксклюзив') }}</span>@endif
                             <div class="brand-logo"><span class="brand-word">{{ $brand->name }}</span></div>
-                            <div class="meta">{{ $brand->category }} · {{ $brand->country }}</div>
-                            <p class="muted small">{{ $brand->description }}</p>
+                            <div class="meta">{{ $brand->tr('category') }} · {{ $brand->tr('country') }}</div>
+                            <p class="muted small">{{ $brand->tr('description') }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -141,19 +141,19 @@
         <div class="wrap">
             <div class="section-head">
                 <div>
-                    <div class="eyebrow">Вдохновение</div>
-                    <h2>Архитектура мира в каждой детали</h2>
+                    <div class="eyebrow">{{ __('Вдохновение') }}</div>
+                    <h2>{{ __('Архитектура мира в каждой детали') }}</h2>
                 </div>
-                <p class="lead" style="max-width:420px">Линии великих зданий стали частью нашего визуального языка: мы учимся у них пропорциям, ритму и свету.</p>
+                <p class="lead" style="max-width:420px">{{ __('Линии великих зданий стали частью нашего визуального языка: мы учимся у них пропорциям, ритму и свету.') }}</p>
             </div>
             <div class="landmarks">
                 @foreach (config('rennova.landmarks') as $key => [$name, $city, $year, $note])
                     <div class="landmark-cell">
                         <x-landmark :name="$key" />
                         <div>
-                            <div class="city">{{ $city }} · {{ $year }}</div>
-                            <h3>{{ $name }}</h3>
-                            <p>{{ $note }}</p>
+                            <div class="city">{{ __($city) }} · {{ __((string) $year) }}</div>
+                            <h3>{{ __($name) }}</h3>
+                            <p>{{ __($note) }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -165,12 +165,12 @@
     <section class="section section--bone">
         <div class="wrap split" style="align-items:start">
             <div>
-                <div class="eyebrow">Сообщество</div>
-                <h2>Обсуждайте проекты и заказывайте особые товары</h2>
-                <p class="lead">Зарегистрированные пользователи обсуждают дизайн, архитектуру и ремонт с нашими специалистами, а также отправляют запросы на импорт специальных товаров.</p>
+                <div class="eyebrow">{{ __('Сообщество') }}</div>
+                <h2>{{ __('Обсуждайте проекты и заказывайте особые товары') }}</h2>
+                <p class="lead">{{ __('Зарегистрированные пользователи обсуждают дизайн, архитектуру и ремонт с нашими специалистами, а также отправляют запросы на импорт специальных товаров.') }}</p>
                 <div class="hero-actions">
-                    <a href="{{ route('discussions.index') }}" class="btn" wire:navigate>К обсуждениям</a>
-                    <a href="{{ route('imports') }}" class="btn btn--ghost" wire:navigate>Запросить импорт</a>
+                    <a href="{{ route('discussions.index') }}" class="btn" wire:navigate>{{ __('К обсуждениям') }}</a>
+                    <a href="{{ route('imports') }}" class="btn btn--ghost" wire:navigate>{{ __('Запросить импорт') }}</a>
                 </div>
             </div>
             <div>
@@ -181,10 +181,10 @@
                             <h3><a href="{{ route('discussions.show', $d) }}" wire:navigate>{{ $d->title }}</a></h3>
                             <div class="small muted">{{ $d->categoryLabel() }} · {{ $d->user->name }}</div>
                         </div>
-                        <div class="stats"><strong>{{ $d->replies_count }}</strong>ответов</div>
+                        <div class="stats"><strong>{{ $d->replies_count }}</strong>{{ __('ответов') }}</div>
                     </div>
                 @empty
-                    <div class="empty">Пока нет обсуждений. Начните первое!</div>
+                    <div class="empty">{{ __('Пока нет обсуждений. Начните первое!') }}</div>
                 @endforelse
             </div>
         </div>
@@ -194,9 +194,9 @@
     <section class="section section--dark" id="request">
         <div class="wrap split">
             <div>
-                <div class="eyebrow">Заявка</div>
-                <h2>Расскажите о своём проекте</h2>
-                <p class="lead">Оставьте контакты, и менеджер свяжется с вами, чтобы обсудить задачу, сроки и бюджет.</p>
+                <div class="eyebrow">{{ __('Заявка') }}</div>
+                <h2>{{ __('Расскажите о своём проекте') }}</h2>
+                <p class="lead">{{ __('Оставьте контакты, и менеджер свяжется с вами, чтобы обсудить задачу, сроки и бюджет.') }}</p>
                 <div class="skyline" style="color:rgba(236,235,225,.2);max-width:420px;margin-top:40px">
                     <x-landmark name="cascade" /><x-landmark name="colosseum" /><x-landmark name="taj" />
                 </div>

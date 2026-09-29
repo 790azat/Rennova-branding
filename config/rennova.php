@@ -1,6 +1,13 @@
 <?php
 
 return [
+    // Site languages: code => switcher label. Russian is the source language.
+    'locales' => [
+        'hy' => 'Հայ',
+        'ru' => 'Рус',
+        'en' => 'Eng',
+    ],
+
     // Fallbacks for the social links; the admin panel settings take precedence.
     'facebook_url' => env('FACEBOOK_URL', ''),
     'instagram_url' => env('INSTAGRAM_URL', ''),

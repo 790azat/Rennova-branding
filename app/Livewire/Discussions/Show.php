@@ -19,12 +19,12 @@ class Show extends Component
         abort_unless(auth()->check(), 403);
 
         if ($this->discussion->is_closed && ! auth()->user()->isAdmin()) {
-            $this->addError('body', 'Обсуждение закрыто.');
+            $this->addError('body', __('Обсуждение закрыто.'));
 
             return;
         }
 
-        $this->validate(['body' => 'required|string|min:2|max:5000'], [], ['body' => 'ответ']);
+        $this->validate(['body' => 'required|string|min:2|max:5000'], [], ['body' => __('ответ')]);
 
         $this->discussion->replies()->create(['user_id' => auth()->id(), 'body' => $this->body]);
         $this->discussion->update(['last_activity_at' => now()]);

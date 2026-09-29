@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Brand extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'slug', 'name', 'country', 'category', 'tagline', 'description', 'website',
-        'logo_url', 'is_exclusive', 'is_featured', 'is_active', 'sort',
+        'logo_url', 'is_exclusive', 'is_featured', 'is_active', 'sort', 'translations',
     ];
 
     protected function casts(): array

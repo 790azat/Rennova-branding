@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ isset($title) ? $title.' — ' : '' }}Админпанель Rennova</title>
+    <title>{{ isset($title) ? __($title).' — ' : '' }}{{ __('Админпанель') }} Rennova</title>
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=3">
     <meta name="robots" content="noindex">
     @livewireStyles
 </head>
@@ -33,13 +33,15 @@
         <nav>
             @foreach ($items as [$route, $label, $count])
                 <a href="{{ route($route) }}" class="{{ request()->routeIs($route) ? 'active' : '' }}" wire:navigate>
-                    {{ $label }} @if($count)<span class="count">{{ $count }}</span>@endif
+                    {{ __($label) }} @if($count)<span class="count">{{ $count }}</span>@endif
                 </a>
             @endforeach
-            <div class="sep">Сайт</div>
-            <a href="{{ route('home') }}">← На сайт</a>
+            <div class="sep">{{ __('Язык') }}</div>
+            <div style="padding:0 14px">@include('partials.lang')</div>
+            <div class="sep">{{ __('Сайт') }}</div>
+            <a href="{{ route('home') }}">{{ __('← На сайт') }}</a>
             <form method="POST" action="{{ route('logout') }}">@csrf
-                <a href="#" onclick="this.closest('form').submit(); return false;">Выйти</a>
+                <a href="#" onclick="this.closest('form').submit(); return false;">{{ __('Выйти') }}</a>
             </form>
         </nav>
     </aside>

@@ -20,10 +20,10 @@ class Dashboard extends Component
     {
         return view('livewire.admin.dashboard', [
             'kpis' => [
-                ['Новые заявки на услуги', ServiceOrder::where('status', 'new')->count()],
-                ['Новые запросы на импорт', ImportRequest::where('status', 'new')->count()],
-                ['Пользователи', User::count()],
-                ['Обсуждения / ответы', Discussion::count().' / '.DiscussionReply::count()],
+                [__('Новые заявки на услуги'), ServiceOrder::where('status', 'new')->count()],
+                [__('Новые запросы на импорт'), ImportRequest::where('status', 'new')->count()],
+                [__('Пользователи'), User::count()],
+                [__('Обсуждения / ответы'), Discussion::count().' / '.DiscussionReply::count()],
             ],
             'orders' => ServiceOrder::with('service')->latest()->take(6)->get(),
             'imports' => ImportRequest::with('user')->latest()->take(6)->get(),

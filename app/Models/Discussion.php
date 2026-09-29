@@ -37,6 +37,6 @@ class Discussion extends Model
 
     public function categoryLabel(): string
     {
-        return self::CATEGORIES[$this->category] ?? $this->category;
+        return __(self::CATEGORIES[$this->category] ?? $this->category);
     }
 }

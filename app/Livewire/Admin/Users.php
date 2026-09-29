@@ -23,7 +23,7 @@ class Users extends Component
 
     public function toggleAdmin(int $id): void
     {
-        abort_if($id === auth()->id(), 422, 'Нельзя снять права с самого себя.');
+        abort_if($id === auth()->id(), 422, __('Нельзя снять права с самого себя.'));
         $u = User::findOrFail($id);
         $u->update(['role' => $u->isAdmin() ? 'user' : 'admin']);
     }

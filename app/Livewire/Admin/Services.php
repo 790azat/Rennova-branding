@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Livewire\Concerns\EditsTranslations;
 use App\Models\Service;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -13,6 +14,8 @@ use Livewire\Component;
 #[Title('Услуги')]
 class Services extends Component
 {
+    use EditsTranslations;
+
     public bool $open = false;
 
     public ?int $editingId = null;
@@ -31,6 +34,17 @@ class Services extends Component
             'features' => '', 'price_from' => null, 'price_unit' => 'м²', 'landmark' => 'eiffel',
             'is_bundle' => false, 'is_active' => true, 'sort' => 0,
         ];
+        $this->fillTranslations();
+    }
+
+    protected function translatableFields(): array
+    {
+        return ['title' => 'Название', 'excerpt' => 'Краткое описание', 'description' => 'Полное описание', 'features' => 'Что входит (по одному пункту в строке)'];
+    }
+
+    protected function translationListFields(): array
+    {
+        return ['features'];
     }
 
     public function create(): void
@@ -46,6 +60,7 @@ class Services extends Component
         $this->editingId = $s->id;
         $this->form = $s->only(array_keys($this->form));
         $this->form['features'] = implode("\n", $s->features ?? []);
+        $this->fillTranslations($s);
         $this->open = true;
     }
 
@@ -66,10 +81,11 @@ class Services extends Component
             'form.is_bundle' => 'boolean',
             'form.is_active' => 'boolean',
             'form.sort' => 'integer',
-        ], [], ['form.title' => 'название', 'form.slug' => 'адрес'])['form'];
+        ], [], ['form.title' => __('название'), 'form.slug' => __('адрес')])['form'];
 
         $data['features'] = array_values(array_filter(array_map('trim', explode("\n", $data['features'] ?? ''))));
         $data['is_bundle'] = $data['is_bundle'] || $data['category'] === 'bundle';
+        $data['translations'] = $this->translationsPayload();
 
         Service::updateOrCreate(['id' => $this->editingId], $data);
         $this->open = false;

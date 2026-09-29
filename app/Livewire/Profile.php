@@ -40,10 +40,10 @@ class Profile extends Component
             'name' => 'required|string|max:120',
             'email' => ['required', 'email', 'max:160', Rule::unique('users')->ignore($user->id)],
             'phone' => 'nullable|string|max:40',
-        ], [], ['name' => 'имя', 'phone' => 'телефон']);
+        ], [], ['name' => __('имя'), 'phone' => __('телефон')]);
 
         $user->update($data);
-        session()->flash('saved', 'Профиль сохранён.');
+        session()->flash('saved', __('Профиль сохранён.'));
     }
 
     public function changePassword(): void
@@ -51,11 +51,11 @@ class Profile extends Component
         $this->validate([
             'current_password' => 'required|current_password',
             'password' => ['required', 'confirmed', Password::min(8)],
-        ], [], ['current_password' => 'текущий пароль', 'password' => 'новый пароль']);
+        ], [], ['current_password' => __('текущий пароль'), 'password' => __('новый пароль')]);
 
         auth()->user()->update(['password' => Hash::make($this->password)]);
         $this->reset('current_password', 'password', 'password_confirmation');
-        session()->flash('saved', 'Пароль обновлён.');
+        session()->flash('saved', __('Пароль обновлён.'));
     }
 
     public function render()

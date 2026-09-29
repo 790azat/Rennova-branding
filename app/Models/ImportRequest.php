@@ -39,11 +39,11 @@ class ImportRequest extends Model
 
     public function typeLabel(): string
     {
-        return self::PRODUCT_TYPES[$this->product_type] ?? $this->product_type;
+        return __(self::PRODUCT_TYPES[$this->product_type] ?? $this->product_type);
     }
 
     public function statusLabel(): string
     {
-        return self::STATUSES[$this->status] ?? $this->status;
+        return __(self::STATUSES[$this->status] ?? $this->status);
     }
 }

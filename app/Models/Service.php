@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
+    use HasTranslations;
+
     public const CATEGORIES = [
         'cleaning' => 'Клининг',
         'renovation' => 'Ремонт',
@@ -18,7 +21,7 @@ class Service extends Model
 
     protected $fillable = [
         'slug', 'title', 'category', 'excerpt', 'description', 'features',
-        'price_from', 'price_unit', 'landmark', 'is_bundle', 'is_active', 'sort',
+        'price_from', 'price_unit', 'landmark', 'is_bundle', 'is_active', 'sort', 'translations',
     ];
 
     protected function casts(): array
@@ -47,7 +50,7 @@ class Service extends Model
 
     public function categoryLabel(): string
     {
-        return self::CATEGORIES[$this->category] ?? $this->category;
+        return __(self::CATEGORIES[$this->category] ?? $this->category);
     }
 
     public function priceLabel(): ?string
@@ -56,6 +59,7 @@ class Service extends Model
             return null;
         }
 
-        return 'от '.number_format($this->price_from, 0, ',', ' ').' ֏'.($this->price_unit ? ' / '.$this->price_unit : '');
+        return __('от :price', ['price' => number_format($this->price_from, 0, ',', ' ').' ֏'])
+            .($this->price_unit ? ' / '.__($this->price_unit) : '');
     }
 }

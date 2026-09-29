@@ -14,17 +14,22 @@ class ServiceRequestForm extends Component
 
     public bool $sent = false;
 
-    #[Validate('required|string|max:120', as: 'имя')]
+    #[Validate('required|string|max:120')]
     public string $name = '';
 
-    #[Validate('required|string|max:40', as: 'телефон')]
+    #[Validate('required|string|max:40')]
     public string $phone = '';
 
-    #[Validate('nullable|email|max:160', as: 'email')]
+    #[Validate('nullable|email|max:160')]
     public string $email = '';
 
-    #[Validate('nullable|string|max:3000', as: 'сообщение')]
+    #[Validate('nullable|string|max:3000')]
     public string $message = '';
+
+    protected function validationAttributes(): array
+    {
+        return ['name' => __('имя'), 'phone' => __('телефон'), 'email' => 'email', 'message' => __('сообщение')];
+    }
 
     public function mount(?int $serviceId = null): void
     {
@@ -44,7 +49,7 @@ class ServiceRequestForm extends Component
 
         $key = 'service-request:'.request()->ip();
         if (RateLimiter::tooManyAttempts($key, 5)) {
-            $this->addError('name', 'Слишком много заявок. Попробуйте чуть позже.');
+            $this->addError('name', __('Слишком много заявок. Попробуйте чуть позже.'));
 
             return;
         }
@@ -66,7 +71,7 @@ class ServiceRequestForm extends Component
     public function render()
     {
         return view('livewire.service-request-form', [
-            'services' => Service::query()->active()->get(['id', 'title']),
+            'services' => Service::query()->active()->get(['id', 'title', 'translations']),
         ]);
     }
 }

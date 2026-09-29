@@ -54,7 +54,7 @@ class Index extends Component
             'newCategory' => 'required|in:'.implode(',', array_keys(Discussion::CATEGORIES)),
             'newTitle' => 'required|string|min:5|max:160',
             'newBody' => 'required|string|min:10|max:5000',
-        ], [], ['newCategory' => 'раздел', 'newTitle' => 'заголовок', 'newBody' => 'текст']);
+        ], [], ['newCategory' => __('раздел'), 'newTitle' => __('заголовок'), 'newBody' => __('текст')]);
 
         $discussion = auth()->user()->discussions()->create([
             'category' => $data['newCategory'],

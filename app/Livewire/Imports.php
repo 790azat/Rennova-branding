@@ -39,8 +39,8 @@ class Imports extends Component
             'quantity' => 'nullable|string|max:120',
             'budget' => 'nullable|integer|min:0|max:4000000000',
         ], [], [
-            'productType' => 'тип товара', 'title' => 'название', 'description' => 'описание',
-            'preferredBrand' => 'бренд', 'quantity' => 'количество', 'budget' => 'бюджет',
+            'productType' => __('тип товара'), 'title' => __('название'), 'description' => __('описание'),
+            'preferredBrand' => __('бренд'), 'quantity' => __('количество'), 'budget' => __('бюджет'),
         ]);
 
         auth()->user()->importRequests()->create([

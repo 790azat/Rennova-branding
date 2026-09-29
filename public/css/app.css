@@ -320,3 +320,19 @@ td .input { padding: 8px 10px; font-size: .85rem; }
     .page-hero .landmark { height: 150px; opacity: .5; }
     .nav-login { display: block; }
 }
+.lang-switch { display: flex; border: 1px solid var(--line); border-radius: 40px; padding: 3px; }
+.lang-switch a { font-size: .72rem; font-weight: 600; letter-spacing: .06em; padding: 6px 10px; border-radius: 40px; color: var(--graphite); }
+.lang-switch a:hover { color: var(--forest); }
+.lang-switch a.active { background: var(--forest); color: var(--bone); }
+.admin-side .lang-switch { border-color: rgba(236, 235, 225, .2); display: inline-flex; }
+.admin-side .lang-switch a { color: #c9ccbf; padding: 6px 10px !important; }
+.admin-side .lang-switch a.active { background: var(--olive); color: var(--bone); }
+@media (max-width: 640px) { .lang-switch a { padding: 6px 7px; } }
+
+/* Admin: translation fields */
+.tr-fields { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+.tr-fields .sep-title { font-weight: 600; }
+.tr-fields .sep-title .muted { font-weight: 400; font-size: 13px; opacity: .7; margin-left: 6px; }
+.tr-fields details { border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; }
+.tr-fields details[open] { display: grid; gap: 10px; }
+.tr-fields summary { cursor: pointer; font-weight: 600; }

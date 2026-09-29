@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Livewire\Home::class)->name('home');
+Route::get('/lang/{locale}', function (Request $request, string $locale) {
+    abort_unless(array_key_exists($locale, config('rennova.locales')), 404);
+    $request->session()->put('locale', $locale);
+
+    return redirect()->back(fallback: route('home'));
+})->name('locale');
 Route::get('/services', Livewire\Services\Index::class)->name('services.index');
 Route::get('/services/{service:slug}', Livewire\Services\Show::class)->name('services.show');
 Route::get('/brands', Livewire\Brands::class)->name('brands');
@@ -52,7 +58,7 @@ Route::get('/setup/{token}', function (string $token) {
         Artisan::call('db:seed', ['--force' => true]);
         $out .= Artisan::output();
     } catch (Throwable $e) {
-        $out = 'Ошибка: '.$e->getMessage();
+        $out = 'Error: '.$e->getMessage();
     }
 
     return response($out, 200, ['Content-Type' => 'text/plain; charset=utf-8']);

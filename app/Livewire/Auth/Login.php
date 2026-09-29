@@ -14,13 +14,18 @@ use Livewire\Component;
 #[Title('Вход')]
 class Login extends Component
 {
-    #[Validate('required|email', as: 'email')]
+    #[Validate('required|email')]
     public string $email = '';
 
-    #[Validate('required|string', as: 'пароль')]
+    #[Validate('required|string')]
     public string $password = '';
 
     public bool $remember = true;
+
+    protected function validationAttributes(): array
+    {
+        return ['email' => 'email', 'password' => __('пароль')];
+    }
 
     public function login(): void
     {
@@ -28,14 +33,14 @@ class Login extends Component
 
         $key = Str::lower($this->email).'|'.request()->ip();
         if (RateLimiter::tooManyAttempts($key, 5)) {
-            $this->addError('email', 'Слишком много попыток. Повторите через '.RateLimiter::availableIn($key).' сек.');
+            $this->addError('email', __('Слишком много попыток. Повторите через :seconds сек.', ['seconds' => RateLimiter::availableIn($key)]));
 
             return;
         }
 
         if (! Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             RateLimiter::hit($key);
-            $this->addError('email', 'Неверный email или пароль.');
+            $this->addError('email', __('Неверный email или пароль.'));
 
             return;
         }

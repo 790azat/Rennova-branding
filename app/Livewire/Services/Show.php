@@ -24,6 +24,6 @@ class Show extends Component
                 ->whereKeyNot($this->service->id)
                 ->where(fn ($q) => $q->where('category', $this->service->category)->orWhere('is_bundle', true))
                 ->take(3)->get(),
-        ])->title($this->service->title);
+        ])->title($this->service->tr('title'));
     }
 }

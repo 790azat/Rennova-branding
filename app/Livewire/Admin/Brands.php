@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Livewire\Concerns\EditsTranslations;
 use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -13,6 +14,8 @@ use Livewire\Component;
 #[Title('Бренды')]
 class Brands extends Component
 {
+    use EditsTranslations;
+
     public bool $open = false;
 
     public ?int $editingId = null;
@@ -30,6 +33,12 @@ class Brands extends Component
             'name' => '', 'country' => '', 'category' => '', 'tagline' => '', 'description' => '',
             'website' => '', 'logo_url' => '', 'is_exclusive' => true, 'is_featured' => false, 'is_active' => true, 'sort' => 0,
         ];
+        $this->fillTranslations();
+    }
+
+    protected function translatableFields(): array
+    {
+        return ['tagline' => 'Слоган', 'category' => 'Категория', 'country' => 'Страна', 'description' => 'Описание'];
     }
 
     public function create(): void
@@ -44,6 +53,7 @@ class Brands extends Component
         $b = Brand::findOrFail($id);
         $this->editingId = $b->id;
         $this->form = array_map(fn ($v) => $v ?? '', $b->only(array_keys($this->form)));
+        $this->fillTranslations($b);
         $this->open = true;
     }
 
@@ -61,15 +71,16 @@ class Brands extends Component
             'form.is_featured' => 'boolean',
             'form.is_active' => 'boolean',
             'form.sort' => 'integer',
-        ], [], ['form.name' => 'название', 'form.website' => 'сайт', 'form.logo_url' => 'логотип'])['form'];
+        ], [], ['form.name' => __('название'), 'form.website' => __('сайт'), 'form.logo_url' => __('логотип')])['form'];
 
         $data = array_map(fn ($v) => $v === '' ? null : $v, $data);
         $data['slug'] = Str::slug($data['name']);
 
         validator(['slug' => $data['slug']], [
             'slug' => [Rule::unique('brands', 'slug')->ignore($this->editingId)],
-        ], ['slug.unique' => 'Бренд с таким названием уже есть.'])->validate();
+        ], ['slug.unique' => __('Бренд с таким названием уже есть.')])->validate();
 
+        $data['translations'] = $this->translationsPayload();
         Brand::updateOrCreate(['id' => $this->editingId], $data);
         $this->open = false;
     }
