@@ -61,5 +61,23 @@ Route::get('/setup/{token}', function (string $token) {
         $out = 'Error: '.$e->getMessage();
     }
 
+    // Smoke check: render the main pages in every language and report failures.
+    foreach (array_keys(config('rennova.locales')) as $locale) {
+        foreach (['/', '/services', '/brands', '/discussions'] as $path) {
+            try {
+                app()->setLocale($locale);
+                \Livewire\Livewire::mount(match ($path) {
+                    '/' => Livewire\Home::class,
+                    '/services' => Livewire\Services\Index::class,
+                    '/brands' => Livewire\Brands::class,
+                    '/discussions' => Livewire\Discussions\Index::class,
+                });
+                $out .= "\nOK   {$locale} {$path}";
+            } catch (Throwable $e) {
+                $out .= "\nFAIL {$locale} {$path}: ".$e->getMessage().' @ '.basename($e->getFile()).':'.$e->getLine();
+            }
+        }
+    }
+
     return response($out, 200, ['Content-Type' => 'text/plain; charset=utf-8']);
 });
