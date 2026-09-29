@@ -97,6 +97,11 @@ return [
             'prefix_indexes' => true,
             'search_path' => 'public',
             'sslmode' => env('DB_SSLMODE', 'prefer'),
+            // Neon's pooler (PgBouncer, transaction mode) keeps server-side prepared statements across
+            // clients, which breaks after schema changes ("cached plan must not change result type").
+            'options' => extension_loaded('pdo_pgsql') ? [
+                PDO::ATTR_EMULATE_PREPARES => filter_var(env('DB_EMULATE_PREPARES', true), FILTER_VALIDATE_BOOL),
+            ] : [],
         ],
 
         'sqlsrv' => [
