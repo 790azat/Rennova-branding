@@ -5,7 +5,7 @@
     @if ($post->cover_image)<meta property="og:image" content="{{ url($post->cover_image) }}">@endif
     <link rel="canonical" href="{{ route('blog.show', $post) }}">
     <script type="application/ld+json">{!! json_encode([
-        '@context' => 'https://schema.org', '@type' => 'Article',
+        '@'.'context' => 'https://schema.org', '@type' => 'Article',
         'headline' => $post->tr('title'), 'description' => $post->tr('excerpt'),
         'datePublished' => $post->published_at?->toAtomString(), 'dateModified' => $post->updated_at?->toAtomString(),
         'inLanguage' => app()->getLocale(), 'image' => $post->cover_image ? url($post->cover_image) : null,
