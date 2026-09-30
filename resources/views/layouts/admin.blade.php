@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=5">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=7">
     <meta name="robots" content="noindex">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @livewireStyles
@@ -19,8 +19,10 @@
     $newImports = \App\Models\ImportRequest::where('status', 'new')->count();
     $newAppointments = \App\Models\Appointment::where('status', 'new')->count();
     $pendingReviews = \App\Models\Review::where('status', 'pending')->count();
+    $unreadChats = (int) \App\Models\ChatConversation::where('status', 'open')->sum('unread_admin');
     $items = [
         ['admin.dashboard', 'Обзор', null],
+        ['admin.chats', 'Онлайн-чат', $unreadChats],
         ['admin.orders', 'Заявки на услуги', $newOrders],
         ['admin.appointments', 'Записи на консультацию', $newAppointments],
         ['admin.imports', 'Запросы на импорт', $newImports],

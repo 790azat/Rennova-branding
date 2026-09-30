@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=6">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=7">
     @stack('head')
     @livewireStyles
 </head>
@@ -116,7 +116,9 @@
     </div>
 </footer>
 
-@include('partials.messengers')
+@persist('chat')
+    <livewire:chat-widget />
+@endpersist
 
 <div class="mobile-bar">
     <a href="tel:{{ preg_replace('/[^+\d]/', '', \App\Models\Setting::get('phone')) }}" class="btn btn--ghost btn--sm">{{ __('Позвонить') }}</a>

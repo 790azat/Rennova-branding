@@ -83,6 +83,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/appointments', Livewire\Admin\Appointments::class)->name('appointments');
     Route::get('/reviews', Livewire\Admin\Reviews::class)->name('reviews');
     Route::get('/posts', Livewire\Admin\Posts::class)->name('posts');
+    Route::get('/chats', Livewire\Admin\Chats::class)->name('chats');
     Route::get('/client-projects', Livewire\Admin\ClientProjects::class)->name('client-projects');
     Route::get('/client-projects/{project}', Livewire\Admin\ClientProjectShow::class)->name('client-projects.show');
 });
