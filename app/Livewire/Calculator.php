@@ -18,8 +18,10 @@ class Calculator extends Component
     #[Url(as: 'service')]
     public string $serviceSlug = '';
 
+    #[Url]
     public int|string $area = 60;
 
+    #[Url]
     public string $property = 'apartment';
 
     public string $condition = 'new';

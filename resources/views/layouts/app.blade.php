@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=5">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=6">
     @stack('head')
     @livewireStyles
 </head>
@@ -38,6 +38,7 @@
         <div class="header-actions">
             @include('partials.lang')
             @include('partials.socials')
+            <a href="tel:{{ preg_replace('/[^+\d]/', '', \App\Models\Setting::get('phone')) }}" class="header-phone">{{ \App\Models\Setting::get('phone') }}</a>
             <a href="{{ route('booking') }}" class="btn btn--sm header-cta" wire:navigate>{{ __('Консультация') }}</a>
             @auth
                 <div class="user-menu" x-data="{ menu: false }" @click.outside="menu = false">
@@ -108,11 +109,6 @@
                 </ul>
             </div>
         </div>
-        <div class="skyline">
-            @foreach (array_keys(config('rennova.landmarks')) as $landmark)
-                <x-landmark :name="$landmark" />
-            @endforeach
-        </div>
         <div class="footer-bottom">
             <span>© {{ date('Y') }} Rennova by Metruminvest</span>
             <span>{{ __('Вдохновлено архитектурой мира') }}</span>
@@ -121,6 +117,11 @@
 </footer>
 
 @include('partials.messengers')
+
+<div class="mobile-bar">
+    <a href="tel:{{ preg_replace('/[^+\d]/', '', \App\Models\Setting::get('phone')) }}" class="btn btn--ghost btn--sm">{{ __('Позвонить') }}</a>
+    <a href="{{ route('calculator') }}" class="btn btn--sm" wire:navigate>{{ __('Рассчитать цену') }}</a>
+</div>
 
 @if (session('status'))
     <div class="toast" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 4000)" x-transition>{{ session('status') }}</div>

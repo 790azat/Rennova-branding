@@ -20,15 +20,14 @@
 
             <div class="grid grid-3" wire:loading.class="muted">
                 @forelse ($services as $i => $service)
-                    <a href="{{ route('services.show', $service) }}" class="service-card" wire:navigate wire:key="s-{{ $service->id }}"
-                       @if($service->is_bundle) style="background:var(--forest);color:var(--bone)" @endif>
+                    <a href="{{ route('services.show', $service) }}" class="service-card @if($service->is_bundle) service-card--bundle @endif" wire:navigate wire:key="s-{{ $service->id }}">
                         <x-landmark :name="$service->landmark ?? 'eiffel'" />
                         <div class="num">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</div>
                         <span class="tag">{{ $service->categoryLabel() }}</span>
-                        <h3 @if($service->is_bundle) style="color:var(--bone)" @endif>{{ $service->tr('title') }}</h3>
+                        <h3>{{ $service->tr('title') }}</h3>
                         <p class="muted small">{{ $service->tr('excerpt') }}</p>
                         <div class="price">{{ $service->priceLabel() }}</div>
-                        <span class="link-arrow" @if($service->is_bundle) style="color:var(--bone)" @endif>{{ __('Подробнее') }}</span>
+                        <span class="link-arrow">{{ __('Подробнее') }}</span>
                     </a>
                 @empty
                     <div class="empty">{{ __('В этой категории пока нет услуг.') }}</div>
