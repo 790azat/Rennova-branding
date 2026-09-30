@@ -4,7 +4,7 @@
         <div class="fab-list" x-show="open" x-cloak x-transition>
             @foreach ($messengers as $network => $url)
                 <a href="{{ $url }}" target="_blank" rel="noopener" class="fab-item fab-item--{{ $network }}">
-                    @include('partials.messenger-icon', ['network' => $network]) <span>{{ ucfirst($network) }}</span>
+                    @include('partials.messenger-icon', ['network' => $network]) <span>{{ ['whatsapp' => 'WhatsApp', 'telegram' => 'Telegram', 'viber' => 'Viber'][$network] ?? ucfirst($network) }}</span>
                 </a>
             @endforeach
         </div>

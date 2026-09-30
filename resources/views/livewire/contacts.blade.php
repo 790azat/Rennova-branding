@@ -22,7 +22,7 @@
                         <span>{{ __('Мессенджеры') }}</span>
                         <div class="messenger-buttons">
                             @foreach ($messengers as $network => $url)
-                                <a href="{{ $url }}" target="_blank" rel="noopener" class="btn btn--ghost btn--sm messenger messenger--{{ $network }}">@include('partials.messenger-icon', ['network' => $network]) {{ ucfirst($network) }}</a>
+                                <a href="{{ $url }}" target="_blank" rel="noopener" class="btn btn--ghost btn--sm messenger messenger--{{ $network }}">@include('partials.messenger-icon', ['network' => $network]) {{ ['whatsapp' => 'WhatsApp', 'telegram' => 'Telegram', 'viber' => 'Viber'][$network] ?? ucfirst($network) }}</a>
                             @endforeach
                         </div>
                     </div>

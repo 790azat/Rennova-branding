@@ -19,7 +19,10 @@ class Contact
         if ($n = self::digits(Setting::get('whatsapp'))) {
             $links['whatsapp'] = 'https://wa.me/'.$n;
         }
-        if ($u = ltrim(trim((string) Setting::get('telegram')), '@')) {
+        $telegram = trim((string) Setting::get('telegram'));
+        if (str_starts_with($telegram, '+') && ($n = self::digits($telegram))) {
+            $links['telegram'] = 'https://t.me/+'.$n; // phone number instead of a username
+        } elseif ($u = ltrim($telegram, '@')) {
             $links['telegram'] = 'https://t.me/'.rawurlencode(preg_replace('#^https?://t\.me/#', '', $u));
         }
         if ($n = self::digits(Setting::get('viber'))) {

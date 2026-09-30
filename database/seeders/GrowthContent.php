@@ -73,6 +73,57 @@ class GrowthContent
         ],
     ];
 
+
+    /** Placeholder settings: filled only while the setting is still empty. */
+    public const PLACEHOLDER_SETTINGS = [
+        'whatsapp' => '+374 00 000 000',
+        'telegram' => '+374 00 000 000',
+        'viber' => '+374 00 000 000',
+    ];
+
+    /** Demo portfolio projects with generated before/after pictures (database/seeders/demo). */
+    public const DEMO_PROJECTS = [
+        [
+            'slug' => 'demo-kvartira-kentron', 'category' => 'renovation', 'service' => 'remont-pod-klyuch',
+            'image' => 'apartment', 'landmark' => 'cascade', 'year' => 2025, 'area' => 85,
+            'ru' => ['title' => 'Квартира в Кентроне (демо-проект)', 'location' => 'Ереван, Кентрон', 'duration' => '4 месяца',
+                'summary' => 'Демонстрационный пример. Замените его реальным проектом в админпанели.',
+                'description' => "Это пример того, как выглядит страница проекта.\n\nОпишите здесь задачу клиента, что было сделано и какие материалы использовались. Загрузите реальные фото «до» и «после», и слайдер сравнения появится автоматически."],
+            'en' => ['title' => 'Apartment in Kentron (demo project)', 'location' => 'Yerevan, Kentron', 'duration' => '4 months',
+                'summary' => 'A demonstration example. Replace it with a real project in the admin panel.',
+                'description' => "This is an example of what a project page looks like.\n\nDescribe the client's task, what was done and which materials were used. Upload real before and after photos and the comparison slider will appear automatically."],
+            'hy' => ['title' => 'Բնակարան Կենտրոնում (ցուցադրական նախագիծ)', 'location' => 'Երևան, Կենտրոն', 'duration' => '4 ամիս',
+                'summary' => 'Ցուցադրական օրինակ։ Փոխարինեք այն իրական նախագծով ադմինիստրատորի վահանակում։',
+                'description' => "Սա օրինակ է, թե ինչպես է երևում նախագծի էջը։\n\nՆկարագրեք հաճախորդի խնդիրը, ինչ է արվել և ինչ նյութեր են օգտագործվել։ Վերբեռնեք իրական «առաջ» և «հետո» լուսանկարները, և համեմատման սահիչը կհայտնվի ավտոմատ կերպով։"],
+        ],
+        [
+            'slug' => 'demo-kukhnya-arabkir', 'category' => 'design', 'service' => 'dizain-proekt-interera',
+            'image' => 'kitchen', 'landmark' => 'louvre', 'year' => 2025, 'area' => 22,
+            'ru' => ['title' => 'Кухня в Арабкире (демо-проект)', 'location' => 'Ереван, Арабкир', 'duration' => '6 недель',
+                'summary' => 'Демонстрационный пример. Замените его реальным проектом в админпанели.',
+                'description' => "Пример проекта дизайна интерьера.\n\nЗдесь можно рассказать о планировке, выборе фасадов и освещения."],
+            'en' => ['title' => 'Kitchen in Arabkir (demo project)', 'location' => 'Yerevan, Arabkir', 'duration' => '6 weeks',
+                'summary' => 'A demonstration example. Replace it with a real project in the admin panel.',
+                'description' => "An example interior design project.\n\nHere you can describe the layout and the choice of fronts and lighting."],
+            'hy' => ['title' => 'Խոհանոց Արաբկիրում (ցուցադրական նախագիծ)', 'location' => 'Երևան, Արաբկիր', 'duration' => '6 շաբաթ',
+                'summary' => 'Ցուցադրական օրինակ։ Փոխարինեք այն իրական նախագծով ադմինիստրատորի վահանակում։',
+                'description' => "Ինտերիերի դիզայնի նախագծի օրինակ։\n\nԱյստեղ կարող եք պատմել հատակագծի, ճակատների և լուսավորության ընտրության մասին։"],
+        ],
+        [
+            'slug' => 'demo-dom-dilijan', 'category' => 'architecture', 'service' => 'rekonstruktsiya-fasadov',
+            'image' => 'facade', 'landmark' => 'bigben', 'year' => 2024, 'area' => 240,
+            'ru' => ['title' => 'Дом в Дилижане (демо-проект)', 'location' => 'Дилижан', 'duration' => '8 месяцев',
+                'summary' => 'Демонстрационный пример. Замените его реальным проектом в админпанели.',
+                'description' => "Пример проекта реконструкции фасада.\n\nОпишите исходное состояние здания, архитектурное решение и материалы."],
+            'en' => ['title' => 'House in Dilijan (demo project)', 'location' => 'Dilijan', 'duration' => '8 months',
+                'summary' => 'A demonstration example. Replace it with a real project in the admin panel.',
+                'description' => "An example facade reconstruction project.\n\nDescribe the original state of the building, the architectural solution and the materials."],
+            'hy' => ['title' => 'Տուն Դիլիջանում (ցուցադրական նախագիծ)', 'location' => 'Դիլիջան', 'duration' => '8 ամիս',
+                'summary' => 'Ցուցադրական օրինակ։ Փոխարինեք այն իրական նախագծով ադմինիստրատորի վահանակում։',
+                'description' => "Ճակատի վերակառուցման նախագծի օրինակ։\n\nՆկարագրեք շենքի սկզբնական վիճակը, ճարտարապետական լուծումը և նյութերը։"],
+        ],
+    ];
+
     /** Sample catalog items keyed by brand slug: [ru, en, hy] each with name, category, description. */
     public const PRODUCTS = [
         'atelier-nord' => [

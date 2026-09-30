@@ -522,3 +522,5 @@ a.brand-card { color: var(--charcoal); }
 .contacts > *, .contact-list > * { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 640px) { .hero-actions .btn { white-space: normal; text-align: center; } }
 .nav-more > button { white-space: nowrap; }
+@media (max-width: 1560px) { html[lang="hy"] .header-cta { display: none; } html[lang="hy"] .nav { gap: 18px; } }
+html[lang="hy"] .header-actions .socials { display: none; }

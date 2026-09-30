@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Brand;
 use App\Models\Discussion;
+use App\Models\Media;
+use App\Models\PortfolioProject;
 use App\Models\Post;
 use App\Models\DiscussionReply;
 use App\Models\Service;
@@ -64,6 +66,33 @@ class DatabaseSeeder extends Seeder
                     'sort' => $i,
                 ]);
             }
+        }
+
+        foreach (GrowthContent::PLACEHOLDER_SETTINGS as $key => $value) {
+            if (blank(Setting::query()->where('key', $key)->value('value'))) {
+                Setting::put($key, $value);
+            }
+        }
+
+        foreach (GrowthContent::DEMO_PROJECTS as $i => $demo) {
+            if (PortfolioProject::query()->where('slug', $demo['slug'])->exists()) {
+                continue;
+            }
+            $image = fn (string $side) => Media::storeBytes(file_get_contents(__DIR__."/demo/{$demo['image']}-{$side}.jpg"))->url();
+            PortfolioProject::query()->create($demo['ru'] + [
+                'slug' => $demo['slug'],
+                'category' => $demo['category'],
+                'service_id' => Service::query()->where('slug', $demo['service'])->value('id'),
+                'landmark' => $demo['landmark'],
+                'year' => $demo['year'],
+                'area' => $demo['area'],
+                'before_image' => $image('before'),
+                'after_image' => $image('after'),
+                'translations' => ['en' => $demo['en'], 'hy' => $demo['hy']],
+                'is_published' => true,
+                'is_featured' => true,
+                'sort' => $i,
+            ]);
         }
 
         foreach (GrowthContent::POSTS as $post) {
