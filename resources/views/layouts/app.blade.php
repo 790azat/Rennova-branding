@@ -9,7 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=7">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=8">
+    <script src="{{ asset('js/select.js') }}?v=1" defer data-navigate-once></script>
     @stack('head')
     @livewireStyles
 </head>
