@@ -74,7 +74,8 @@
         <div class="footer-grid">
             <div>
                 @include('partials.brand')
-                <p class="small" style="margin-top:24px;max-width:320px">{{ __('Ремонт под ключ, дизайн, архитектура и клининг. От концепции до финальной сдачи объекта.') }}</p>
+                <div class="tagline">Design <i>|</i> Build <i>|</i> Transform</div>
+                <p class="small" style="margin-top:20px;max-width:320px">{{ __('Ремонт под ключ, дизайн, архитектура и клининг. От концепции до финальной сдачи объекта.') }}</p>
                 @include('partials.socials')
             </div>
             <div>
@@ -111,7 +112,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© {{ date('Y') }} Rennova by Metruminvest</span>
+            <span>© {{ date('Y') }} Rennova by Metrum Invest</span>
             <span>{{ __('Вдохновлено архитектурой мира') }}</span>
         </div>
     </div>

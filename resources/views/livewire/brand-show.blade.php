@@ -7,7 +7,7 @@
             @if ($brand->tr('tagline'))<p class="lead">{{ $brand->tr('tagline') }}</p>@endif
             <div class="hero-actions">
                 <a href="{{ route('imports', ['brand' => $brand->name]) }}" class="btn btn--light" wire:navigate>{{ __('Запросить импорт') }}</a>
-                @if ($brand->website)<a href="{{ $brand->website }}" class="btn btn--ghost" style="color:var(--bone);border-color:rgba(236,235,225,.4)" target="_blank" rel="noopener">{{ __('Сайт бренда') }}</a>@endif
+                @if ($brand->website)<a href="{{ $brand->website }}" class="btn btn--ghost" style="color:var(--bone);border-color:rgba(236, 230, 225, .4)" target="_blank" rel="noopener">{{ __('Сайт бренда') }}</a>@endif
             </div>
         </div>
         <x-landmark name="louvre" stroke="0.8" />

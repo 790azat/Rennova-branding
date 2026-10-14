@@ -76,10 +76,10 @@
                 <div class="eyebrow">{{ __('Ориентировочно') }}</div>
                 @if ($estimate)
                     <div class="calc-sum">{{ $money($estimate[0]) }} <span>— {{ $money($estimate[1]) }}</span></div>
-                    <p class="small" style="color:#c9ccbf">{{ __('Точная смета зависит от материалов и состояния объекта. Это не публичная оферта.') }}</p>
+                    <p class="small" style="color:#ccc6bf">{{ __('Точная смета зависит от материалов и состояния объекта. Это не публичная оферта.') }}</p>
                 @else
                     <div class="calc-sum">—</div>
-                    <p class="small" style="color:#c9ccbf">{{ __('Укажите площадь от :min до :max м².', ['min' => $cfg['min_area'], 'max' => $cfg['max_area']]) }}</p>
+                    <p class="small" style="color:#ccc6bf">{{ __('Укажите площадь от :min до :max м².', ['min' => $cfg['min_area'], 'max' => $cfg['max_area']]) }}</p>
                 @endif
 
                 @if ($sent)
