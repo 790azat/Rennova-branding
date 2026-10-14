@@ -11,7 +11,7 @@
     {{-- Hero --}}
     <section class="hx">
         <div class="hx-text">
-            <div class="eyebrow">Rennova by Metruminvest · {{ __('Ереван') }}</div>
+            <div class="eyebrow">Design <i>|</i> Build <i>|</i> Transform</div>
             <h1>{{ __('Пространства, которые') }} <em>{{ __('обновляют жизнь') }}</em></h1>
             <p class="lead">{{ __('Архитектура, дизайн интерьера, ремонт под ключ и клининг. Один договор, прозрачная смета и личный менеджер от замера до сдачи.') }}</p>
             <div class="hero-actions">
@@ -24,7 +24,7 @@
                 <div><strong>{{ $brands->where('is_exclusive', true)->count() }}+</strong><span>{{ __('эксклюзивных брендов') }}</span></div>
             </div>
         </div>
-        <div class="hx-photo" style="background-image:url('{{ asset('img/brand/living.jpg') }}')">
+        <div class="hx-photo" style="background-image:url('{{ asset('img/brand/v2/living.jpg') }}')">
             <div class="hx-badge"><x-logo-mark /></div>
             @if ($bundle)
                 <a href="{{ route('services.show', $bundle) }}" class="hx-cap" wire:navigate>
@@ -100,7 +100,7 @@
                         </ol>
                         <a href="{{ route('services.show', $bundle) }}" class="btn btn--light" wire:navigate>{{ __('Узнать о полном цикле') }}</a>
                     </div>
-                    <div class="bundle-v3-photo" style="background-image:url('{{ asset('img/brand/window.jpg') }}')"></div>
+                    <div class="bundle-v3-photo" style="background-image:url('{{ asset('img/brand/v2/kitchen.jpg') }}')"></div>
                 </div>
             @endif
         </div>
@@ -108,7 +108,7 @@
 
     {{-- Process --}}
     <section class="process">
-        <div class="process-photo" style="background-image:url('{{ asset('img/brand/corridor.jpg') }}')"></div>
+        <div class="process-photo" style="background-image:url('{{ asset('img/brand/v2/lounge.jpg') }}')"></div>
         <div class="process-body">
             <div class="eyebrow">{{ __('Как мы работаем') }}</div>
             <h2>{{ __('Прозрачный процесс от замера до ключей') }}</h2>
@@ -223,6 +223,6 @@
                 <livewire:service-request-form />
             </div>
         </div>
-        <div class="req-photo" style="background-image:url('{{ asset('img/brand/building.jpg') }}')"></div>
+        <div class="req-photo" style="background-image:url('{{ asset('img/brand/v2/marble.jpg') }}')"></div>
     </section>
 </div>

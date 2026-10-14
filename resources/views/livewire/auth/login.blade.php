@@ -4,7 +4,7 @@
         <div style="position:relative">
             <div class="eyebrow">{{ __('Личный кабинет') }}</div>
             <h2>{{ __('С возвращением в Rennova') }}</h2>
-            <p style="color:#c9ccbf;max-width:380px">{{ __('Обсуждайте проекты, отслеживайте заявки и запросы на импорт.') }}</p>
+            <p style="color:#ccc6bf;max-width:380px">{{ __('Обсуждайте проекты, отслеживайте заявки и запросы на импорт.') }}</p>
         </div>
         <x-landmark name="eiffel" stroke="0.8" />
     </div>
